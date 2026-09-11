@@ -15,4 +15,5 @@ def init_db():
         funding_rate REAL)""")
     conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_symbol_timestamp ON snapshots(symbol,timestamp)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_timestamp ON snapshots(timestamp)")
+    conn.execute("CREATE TABLE IF NOT EXISTS watchlist (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL)")
     conn.commit(); conn.close()

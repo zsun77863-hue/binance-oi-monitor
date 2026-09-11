@@ -131,3 +131,26 @@ GET /api/ranking/gold-dog?hours=48
 ## 许可
 
 如需对外发布或商业使用，请根据你的实际使用场景补充许可证。当前仓库未默认声明开源许可证。
+
+## 自选监控
+
+页面顶部的 **⭐ 自选监控** 不会产生任何额外 Binance 请求。它直接读取现有 `snapshots` 表中的全市场小时数据，只在数据库中维护 `watchlist` 关系表。
+
+手机操作流程：
+
+1. 打开页面并点击“⭐ 自选监控”。
+2. 点击“+ 添加币种”，输入现有 USDT 永续合约，例如 `LYNUSDT`。
+3. 点击“查看详情”，选择 24H、48H 或 72H 查看逐小时记录。
+4. 点击“删除”只会删除自选关系，不会删除历史 OI 数据。
+5. 历史表格支持横向滚动；缺少的小时显示“数据缺失”，不会复制其他小时数据。
+
+自选 API：
+
+```text
+GET    /api/watchlist
+POST   /api/watchlist
+DELETE /api/watchlist/{symbol}
+GET    /api/watchlist/{symbol}/history?hours=72
+```
+
+历史接口最多返回 72 个小时，数据来自现有 `snapshots` 表中的 `open_interest`、`open_interest_usd` 和 `price` 字段。加入自选不会改变采集器，也不会增加 Binance API 请求。
