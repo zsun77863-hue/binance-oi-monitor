@@ -117,7 +117,7 @@ def collector_status():
 @app.get('/api/status')
 def status():
     now=latest(); conn=get_connection(); count=conn.execute('SELECT COUNT(*) FROM snapshots WHERE timestamp=?',(now,)).fetchone()[0] if now else 0; conn.close(); return {'latest_timestamp':now,'symbols':count}
-@app.get('/',response_class=HTMLResponse)
+@app.api_route('/', methods=['GET','HEAD'], response_class=HTMLResponse)
 def home(): return HTML
 if __name__=='__main__':
     init_db(); import uvicorn; uvicorn.run(app,host='127.0.0.1',port=8000)
