@@ -1,0 +1,12 @@
+[Unit]
+Description=Binance OI Monitor Web
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/oi-monitor
+ExecStart=/opt/oi-monitor/venv/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8000
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

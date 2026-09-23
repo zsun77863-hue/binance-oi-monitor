@@ -1,0 +1,10 @@
+[Unit]
+Description=Binance OI Collector (rate limited)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/oi-monitor
+ExecStart=/opt/oi-monitor/venv/bin/python /opt/oi-monitor/collector.py
+User=root
